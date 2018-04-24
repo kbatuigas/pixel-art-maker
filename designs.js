@@ -20,15 +20,19 @@ $('#sizePicker').submit(function( event ) {
 
 // Select color input
 let color;
-grid.on('click', 'td', function ( event ) {
-    /*color =*/ colorInput();
-    // if event target already has a background color style property, clear it
-    if ($(this).is('td[style^="background-color"]')) {
-        $(this).css('background-color', '');
-    } else {
-        $(this).attr('style', 'background-color: '+ color);
+
+
+grid.on('mousedown mouseover', 'td', function ( event ) { //click and drag to paint
+    colorInput();
+    if (event.buttons === 1) {
+        if ($(this).is('td[style^="background-color"]')) {
+            $(this).css('background-color', '');
+        } else {
+            $(this).attr('style', 'background-color: '+ color);
+        }
     }
-});
+})
+
 
 // get selected color from picker
 function colorInput() {
@@ -46,17 +50,3 @@ function makeGrid(w, h) {
     }
 }
     
-
-/*
-1. User enters desired width and height for grid.
-2. On clicking submit, save entered width and height.
-3. Create grid based on saved width and height.
-3a. Take width and create number of columns based on width.
-One box = td
-3b. Take height and create number of rows based on height.
-4. User selects desired color from color picker.
-5. Save selected color.
-6. Click a box on the grid, and color box with selected picker.
-6a. If the box is already colored, clear the color.
-7. Repeat 4 to 6 as desired.
-*/
